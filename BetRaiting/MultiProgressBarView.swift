@@ -64,7 +64,7 @@ struct MultiProgressBarView: View {
         }
         
         if bets.filter({ $0 > 0 }).count == 2 {
-            return availableWidth + totalSpacing / CGFloat(bets.count - 3)
+            return availableWidth / 2 + totalSpacing / 3
         }
         
         let totalBets = CGFloat(bets.reduce(0, +))
