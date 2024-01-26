@@ -11,9 +11,9 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack {
-                BarView(progress: 0.4, outcome: .win, coefficient: 1.1)
-                BarView(progress: 0.5, outcome: .loss, coefficient: 1.9)
-                BarView(progress: 0.1, outcome: .refund, coefficient: 1.0)
+                BarView(coefficients: [1.94, 2.17, 1.26])
+                BarView(coefficients: [1, 2, 3])
+                BarView(coefficients: [0.1, 0.2, 0.3])
                 MultiProgressBarView(bets: [11, 5, 6], logoImage: Image("bet_logo"))
                 MultiProgressBarView(bets: [16, 11, 5], logoImage: Image("bet_logo"))
                 MultiProgressBarView(bets: [35, 5, 6], logoImage: Image("bet_logo"))
