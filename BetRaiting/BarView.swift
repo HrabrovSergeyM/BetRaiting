@@ -38,8 +38,6 @@ struct BarView: View {
         if let minCoefficient = coefficients.min(), minCoefficient.rounded(.down) == minCoefficient {
             roundedMinCoefficient = roundedMinCoefficient - 1
         }
-        
-        print((coefficients.max() ?? 1).truncatingRemainder(dividingBy: 10))
 
         let widthRange = roundedMaxCoefficient - roundedMinCoefficient
         let normalizedCoefficient = min(max(coefficients[index], roundedMinCoefficient), roundedMaxCoefficient)
