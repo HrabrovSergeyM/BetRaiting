@@ -10,7 +10,7 @@ import SwiftUI
 struct BarView: View {
     var progress: Double
     var outcome: Outcome
-    var coefficient: String
+    var coefficient: Double
     
     enum Outcome {
         case win, loss, refund
@@ -33,7 +33,7 @@ struct BarView: View {
             
             Spacer()
             
-            Text(coefficient)
+            Text(String(coefficient))
                 .fontWeight(.bold)
         }
         .padding()
@@ -64,8 +64,8 @@ struct BarView: View {
 
 #Preview {
     VStack {
-        BarView(progress: 0.5, outcome: .win, coefficient: "1.94")
-        BarView(progress: 0.7, outcome: .loss, coefficient: "2.17")
-        BarView(progress: 0.3, outcome: .refund, coefficient: "1.26")
+        BarView(progress: 0.5, outcome: .win, coefficient: 1.94)
+        BarView(progress: 0.7, outcome: .loss, coefficient: 2.17)
+        BarView(progress: 0.3, outcome: .refund, coefficient: 1.26)
     }
 }
