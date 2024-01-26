@@ -9,13 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ScrollView {
+            VStack {
+                BarView(progress: 0.4, outcome: .win, coefficient: "1.1")
+                BarView(progress: 0.5, outcome: .loss, coefficient: "1.9")
+                BarView(progress: 0.1, outcome: .refund, coefficient: "1.0")
+                MultiProgressBarView(bets: [11, 5, 6], logoImage: Image("bet_logo"))
+                MultiProgressBarView(bets: [16, 11, 5], logoImage: Image("bet_logo"))
+                MultiProgressBarView(bets: [35, 5, 6], logoImage: Image("bet_logo"))
+                MultiProgressBarView(bets: [98, 1, 1], logoImage: Image("bet_logo"))
+                MultiProgressBarView(bets: [1, 1, 1], logoImage: Image("bet_logo"))
+                MultiProgressBarView(bets: [1, 0, 0], logoImage: Image("bet_logo"))
+                MultiProgressBarView(bets: [1, 0, 1], logoImage: Image("bet_logo"))
+                MultiProgressBarView(bets: [1, 1, 0], logoImage: Image("bet_logo"))
+            }
         }
-        .padding()
     }
 }
 
