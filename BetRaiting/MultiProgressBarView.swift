@@ -42,7 +42,7 @@ struct MultiProgressBarView: View {
                                 Rectangle()
                                     .frame(width: self.barWidth(index, geometry: geometry), height: 10)
                                     .foregroundColor(self.colors[index])
-
+                                
                                 Text("\(self.bets[index]) (\(self.percentageForIndex(index))%)")
                                     .font(.system(size: 12, weight: .medium))
                                     .lineLimit(1)
@@ -58,32 +58,33 @@ struct MultiProgressBarView: View {
     private func barWidth(_ index: Int, geometry: GeometryProxy) -> CGFloat {
         let totalSpacing = spacing * CGFloat(bets.count - 1)
         let availableWidth = geometry.size.width - totalSpacing
-
+        
         if bets.filter({ $0 > 0 }).count == 1 {
             return availableWidth + totalSpacing
         }
+        
         if bets.filter({ $0 > 0 }).count == 2 {
-            return availableWidth + totalSpacing / 0
+            return availableWidth + totalSpacing / CGFloat(bets.count - 3)
         }
-
+        
         let totalBets = CGFloat(bets.reduce(0, +))
-
+        
         let maxPercentage: CGFloat = 0.7
         let minPercentage: CGFloat = 0.15
-
+        
         var percentage = CGFloat(bets[index]) / totalBets
-
+        
         if percentage > maxPercentage {
             percentage = maxPercentage
         } else if percentage < minPercentage {
             percentage = minPercentage
         }
-
+        
         let maxAllowedPercentage = 1.0 - CGFloat(bets.count - 1) * minPercentage
         percentage = min(percentage, maxAllowedPercentage)
-
+        
         let width = percentage * availableWidth
-
+        
         let minWidth: CGFloat = 45
         return max(width, minWidth)
     }
@@ -107,7 +108,7 @@ struct MultiProgressBarView: View {
     private func formatBetsCount(_ count: Int) -> String {
         let lastDigit = count % 10
         let lastTwoDigits = count % 100
-
+        
         switch lastDigit {
         case 1:
             return "\(count) ставка"
@@ -116,18 +117,21 @@ struct MultiProgressBarView: View {
         default:
             break
         }
-
+        
         switch lastTwoDigits {
         case 5...20:
             return "\(count) ставок"
         default:
             break
         }
-
+        
         return "\(count) ставок"
     }
 }
 #Preview {
-    MultiProgressBarView(bets: [1, 0, 1], logoImage: Image("bet_logo"))
-        
+    VStack {
+        MultiProgressBarView(bets: [1, 0, 1], logoImage: Image("bet_logo"))
+        MultiProgressBarView(bets: [1, 1, 1], logoImage: Image("bet_logo"))
+        MultiProgressBarView(bets: [1, 0, 0], logoImage: Image("bet_logo"))
+    }
 }
