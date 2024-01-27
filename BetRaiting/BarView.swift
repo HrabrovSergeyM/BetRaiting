@@ -25,8 +25,7 @@ struct BarView: View {
             }
         }
     }
-
-  
+    
 }
 
 extension BarView {

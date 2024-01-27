@@ -69,7 +69,7 @@ extension MultiProgressBarView {
     
     private var logo: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Выигрыши/проигрыши по букмекерым")
+            Text("Выигрыши/проигрыши по букмекерам")
                 .bold()
             Spacer()
             HStack(alignment: .bottom, spacing: 16) {
