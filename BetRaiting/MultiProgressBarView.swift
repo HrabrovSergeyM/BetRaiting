@@ -11,6 +11,7 @@ struct MultiProgressBarView: View {
     var bets: [Int]
     var colors: [Color]
     var spacing: CGFloat = 4
+    var stackSpacing: CGFloat = 16
     var logoImage: Image
     
     init(bets: [Int], logoImage: Image) {
@@ -20,37 +21,9 @@ struct MultiProgressBarView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Выигрыши/проигрыши по букмекерым")
-                .bold()
-            Spacer()
-            HStack(alignment: .bottom, spacing: 16) {
-                logoImage
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 40)
-                
-                Text(formatBetsCount(bets.reduce(0, +)))
-                    .font(.system(size: 16, weight: .medium))
-            }
-            
-            GeometryReader { geometry in
-                HStack(spacing: self.spacing) {
-                    ForEach(0..<self.bets.count) { index in
-                        if self.bets[index] > 0 {
-                            VStack(alignment: self.textAlignmentForIndex(index)) {
-                                Rectangle()
-                                    .frame(width: self.barWidth(index, geometry: geometry), height: 10)
-                                    .foregroundColor(self.colors[index])
-                                
-                                Text("\(self.bets[index]) (\(self.percentageForIndex(index))%)")
-                                    .font(.system(size: 12, weight: .medium))
-                                    .lineLimit(1)
-                            }
-                        }
-                    }
-                }
-            }
+        VStack(alignment: .leading, spacing: stackSpacing) {
+            logo
+            progressBar
         }
         .padding()
     }
@@ -88,6 +61,50 @@ struct MultiProgressBarView: View {
         let minWidth: CGFloat = 45
         return max(width, minWidth)
     }
+}
+
+extension MultiProgressBarView {
+    
+    // MARK: - Views
+    
+    private var logo: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Выигрыши/проигрыши по букмекерым")
+                .bold()
+            Spacer()
+            HStack(alignment: .bottom, spacing: 16) {
+                logoImage
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 40)
+                
+                Text(formatBetsCount(bets.reduce(0, +)))
+                    .font(.system(size: 16, weight: .medium))
+            }
+        }
+    }
+    
+    private var progressBar: some View {
+        GeometryReader { geometry in
+            HStack(spacing: self.spacing) {
+                ForEach(0..<self.bets.count) { index in
+                    if self.bets[index] > 0 {
+                        VStack(alignment: self.textAlignmentForIndex(index)) {
+                            Rectangle()
+                                .frame(width: self.barWidth(index, geometry: geometry), height: 10)
+                                .foregroundColor(self.colors[index])
+                            
+                            Text("\(self.bets[index]) (\(self.percentageForIndex(index))%)")
+                                .font(.system(size: 12, weight: .medium))
+                                .lineLimit(1)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Functions
     
     private func percentageForIndex(_ index: Int) -> Int {
         let percentage = Double(bets[index]) / Double(bets.reduce(0, +)) * 100
@@ -128,6 +145,7 @@ struct MultiProgressBarView: View {
         return "\(count) ставок"
     }
 }
+
 #Preview {
     VStack {
         MultiProgressBarView(bets: [1, 0, 1], logoImage: Image("bet_logo"))

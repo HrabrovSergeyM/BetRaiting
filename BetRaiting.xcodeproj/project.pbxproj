@@ -13,6 +13,7 @@
 		E94FE3412B5FA17F0092996F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E94FE3402B5FA17F0092996F /* Preview Assets.xcassets */; };
 		E94FE3482B5FA1BB0092996F /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94FE3472B5FA1BB0092996F /* BarView.swift */; };
 		E94FE34A2B5FA86E0092996F /* MultiProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94FE3492B5FA86E0092996F /* MultiProgressBarView.swift */; };
+		E94FE34F2B6482D70092996F /* BarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94FE34E2B6482D70092996F /* BarGraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		E94FE3402B5FA17F0092996F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E94FE3472B5FA1BB0092996F /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		E94FE3492B5FA86E0092996F /* MultiProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiProgressBarView.swift; sourceTree = "<group>"; };
+		E94FE34E2B6482D70092996F /* BarGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				E94FE3392B5FA17B0092996F /* BetRaitingApp.swift */,
 				E94FE33B2B5FA17B0092996F /* ContentView.swift */,
 				E94FE3472B5FA1BB0092996F /* BarView.swift */,
+				E94FE34E2B6482D70092996F /* BarGraphView.swift */,
 				E94FE3492B5FA86E0092996F /* MultiProgressBarView.swift */,
 				E94FE33D2B5FA17F0092996F /* Assets.xcassets */,
 				E94FE33F2B5FA17F0092996F /* Preview Content */,
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94FE3482B5FA1BB0092996F /* BarView.swift in Sources */,
+				E94FE34F2B6482D70092996F /* BarGraphView.swift in Sources */,
 				E94FE34A2B5FA86E0092996F /* MultiProgressBarView.swift in Sources */,
 				E94FE33C2B5FA17B0092996F /* ContentView.swift in Sources */,
 				E94FE33A2B5FA17B0092996F /* BetRaitingApp.swift in Sources */,

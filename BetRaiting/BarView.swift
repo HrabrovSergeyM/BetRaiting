@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BarView: View {
+    var stackSpacing: CGFloat = 8
+    
     var coefficients: [Double]
 
     enum Outcome {
@@ -15,7 +17,7 @@ struct BarView: View {
     }
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: stackSpacing) {
             ForEach(0..<coefficients.count) { index in
                 BarGraphView(progress: self.calculateProgress(index),
                              outcome: self.outcomeForIndex(index),
@@ -24,7 +26,14 @@ struct BarView: View {
         }
     }
 
-    func calculateProgress(_ index: Int) -> Double {
+  
+}
+
+extension BarView {
+    
+    // MARK: - Functions
+    
+    private func calculateProgress(_ index: Int) -> Double {
         var roundedMinCoefficient = floor(coefficients.min() ?? 0)
         var roundedMaxCoefficient = ceil(coefficients.max() ?? 1)
         
@@ -45,7 +54,7 @@ struct BarView: View {
         return max((normalizedCoefficient - roundedMinCoefficient) / widthRange, 0)
     }
 
-    func outcomeForIndex(_ index: Int) -> Outcome {
+    private func outcomeForIndex(_ index: Int) -> Outcome {
         switch index {
         case 0:
             return .win
@@ -59,61 +68,6 @@ struct BarView: View {
     }
 }
 
-struct BarGraphView: View {
-    var progress: Double
-    var outcome: BarView.Outcome
-    var coefficient: Double
-
-    var body: some View {
-        HStack {
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .frame(width: 200, height: 10)
-                    .foregroundColor(.gray.opacity(0.3))
-
-                Rectangle()
-                    .frame(width: calculateWidth(), height: 10)
-                    .foregroundColor(barColor())
-            }
-
-            Text(outcomeText())
-                .fontWeight(.thin)
-
-            Spacer()
-
-            Text(String(coefficient))
-                .fontWeight(.bold)
-        }
-        .padding()
-    }
-
-    func calculateWidth() -> CGFloat {
-        let maxWidth: CGFloat = 200
-        return CGFloat(progress) * maxWidth
-    }
-
-    func barColor() -> Color {
-        switch outcome {
-        case .win:
-            return .green
-        case .loss:
-            return .red
-        case .refund:
-            return .gray
-        }
-    }
-
-    func outcomeText() -> String {
-        switch outcome {
-        case .win:
-            return "Выигрыш"
-        case .loss:
-            return "Проигрыш"
-        case .refund:
-            return "Возврат"
-        }
-    }
-}
 
 
 #Preview {
