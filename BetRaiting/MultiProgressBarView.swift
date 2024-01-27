@@ -27,40 +27,7 @@ struct MultiProgressBarView: View {
         }
         .padding()
     }
-    
-    private func barWidth(_ index: Int, geometry: GeometryProxy) -> CGFloat {
-        let totalSpacing = spacing * CGFloat(bets.count - 1)
-        let availableWidth = geometry.size.width - totalSpacing
-        
-        if bets.filter({ $0 > 0 }).count == 1 {
-            return availableWidth + totalSpacing
-        }
-        
-        if bets.filter({ $0 > 0 }).count == 2 {
-            return availableWidth / 2 + totalSpacing / 3
-        }
-        
-        let totalBets = CGFloat(bets.reduce(0, +))
-        
-        let maxPercentage: CGFloat = 0.7
-        let minPercentage: CGFloat = 0.15
-        
-        var percentage = CGFloat(bets[index]) / totalBets
-        
-        if percentage > maxPercentage {
-            percentage = maxPercentage
-        } else if percentage < minPercentage {
-            percentage = minPercentage
-        }
-        
-        let maxAllowedPercentage = 1.0 - CGFloat(bets.count - 1) * minPercentage
-        percentage = min(percentage, maxAllowedPercentage)
-        
-        let width = percentage * availableWidth
-        
-        let minWidth: CGFloat = 45
-        return max(width, minWidth)
-    }
+
 }
 
 extension MultiProgressBarView {
@@ -91,12 +58,13 @@ extension MultiProgressBarView {
                     if self.bets[index] > 0 {
                         VStack(alignment: self.textAlignmentForIndex(index)) {
                             Rectangle()
-                                .frame(width: self.barWidth(index, geometry: geometry), height: 10)
+                                .frame(width: self.barWidth(index, geometry: geometry), height: 8)
                                 .foregroundColor(self.colors[index])
                             
                             Text("\(self.bets[index]) (\(self.percentageForIndex(index))%)")
                                 .font(.system(size: 12, weight: .medium))
                                 .lineLimit(1)
+                                .opacity(self.percentageForIndex(index) >= 15 ? 1.0 : 0.0)
                         }
                     }
                 }
@@ -105,6 +73,27 @@ extension MultiProgressBarView {
     }
     
     // MARK: - Functions
+    
+    private func barWidth(_ index: Int, geometry: GeometryProxy) -> CGFloat {
+        let totalSpacing = spacing * CGFloat(bets.count - 1)
+        let availableWidth = geometry.size.width - totalSpacing
+        
+        if bets.filter({ $0 > 0 }).count == 1 {
+            return availableWidth + totalSpacing
+        }
+        
+        if bets.filter({ $0 > 0 }).count == 2 {
+            return availableWidth / 2 + totalSpacing / 3
+        }
+        
+        let totalBets = CGFloat(bets.reduce(0, +))
+        
+        let percentage = CGFloat(bets[index]) / totalBets
+        let width = percentage * availableWidth
+        
+        let minWidth: CGFloat = 0
+        return max(width, minWidth)
+    }
     
     private func percentageForIndex(_ index: Int) -> Int {
         let percentage = Double(bets[index]) / Double(bets.reduce(0, +)) * 100
@@ -151,5 +140,6 @@ extension MultiProgressBarView {
         MultiProgressBarView(bets: [1, 0, 1], logoImage: Image("bet_logo"))
         MultiProgressBarView(bets: [1, 1, 1], logoImage: Image("bet_logo"))
         MultiProgressBarView(bets: [1, 0, 0], logoImage: Image("bet_logo"))
+        MultiProgressBarView(bets: [48, 48, 4], logoImage: Image("bet_logo"))
     }
 }
